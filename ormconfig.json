@@ -4,6 +4,5 @@
   "port": 5432,
   "username": "postgres",
   "password": "docker",
-  "database": "apivendas",
-  "ssl": false
+  "database": "apivendas"
 }
