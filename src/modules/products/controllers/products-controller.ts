@@ -14,7 +14,7 @@ export class ProductsController {
     return response.status(200).json(products)
   }
 
-  async get (request: Request, response: Response): Promise<Response> {
+  async getById (request: Request, response: Response): Promise<Response> {
     const { id } = request.params
 
     const product = await this.getProduct.execute({ id })
