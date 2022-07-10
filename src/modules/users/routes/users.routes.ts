@@ -1,6 +1,7 @@
 import { celebrate, Joi, Segments } from 'celebrate'
 import { Router } from 'express'
 import { UsersController } from '../controllers/users-controller'
+import { isAuthenticated } from './../middlewares/is-authenticated'
 
 export const usersRouter = Router()
 const usersController = new UsersController()
@@ -15,4 +16,4 @@ usersRouter.post('/',
   }),
   usersController.create)
 
-usersRouter.get('/', usersController.getAll)
+usersRouter.get('/', isAuthenticated, usersController.getAll)
