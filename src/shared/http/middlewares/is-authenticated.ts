@@ -3,6 +3,12 @@ import { AppError } from '@shared/errors/AppError'
 import { NextFunction, Request, Response } from 'express'
 import { verify } from 'jsonwebtoken'
 
+interface TokenPayload {
+  iat: number
+  exp: number
+  sub: string
+}
+
 export const isAuthenticated = (request: Request, response: Response, next: NextFunction) => {
   const authHeader = request.headers.authorization
 
@@ -13,7 +19,13 @@ export const isAuthenticated = (request: Request, response: Response, next: Next
   const [, token] = authHeader.split(' ')
 
   try {
-    verify(token, authConfig.jwt.secret)
+    const decode = verify(token, authConfig.jwt.secret)
+    const { sub } = decode as TokenPayload
+
+    request.user = {
+      id: sub
+    }
+
     return next()
   } catch (err) {
     throw new AppError('Invalid JWT token')
