@@ -19,7 +19,7 @@ export class CreateUserTokens1657898226493 implements MigrationInterface {
           default: 'uuid_generate_v4()'
         },
         {
-          name: 'user_id',
+          name: 'userId',
           type: 'uuid'
         },
         {
@@ -37,7 +37,7 @@ export class CreateUserTokens1657898226493 implements MigrationInterface {
           name: 'TokenUser',
           referencedTableName: 'users',
           referencedColumnNames: ['id'],
-          columnNames: ['user_id'],
+          columnNames: ['userId'],
           onDelete: 'CASCADE',
           onUpdate: 'CASCADE'
         }
