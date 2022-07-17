@@ -27,10 +27,15 @@ export class ResetPasswordService {
       throw new AppError('User does not exists.')
     }
 
-    if (isAfter(userToken.createdAt, addHours(Date.now(), -2))) {
+    const tokenCreatedAt = userToken.createdAt
+    const compareDate = addHours(tokenCreatedAt, 2)
+
+    if (isAfter(Date.now(), compareDate)) {
       throw new AppError('Token expired.')
     }
 
     user.password = await hash(password, 8)
+
+    await userRepository.save(user)
   }
 }
