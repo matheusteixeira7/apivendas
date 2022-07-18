@@ -12,7 +12,7 @@ interface IRequest {
   oldPassword?: string
 }
 
-export class UpdateProfileService {
+export class UpdateUserService {
   async execute ({ userId, name, email, password, oldPassword }: IRequest): Promise<User> {
     const usersRepository = getCustomRepository(UsersRepository)
     const user = await usersRepository.findById(userId)
