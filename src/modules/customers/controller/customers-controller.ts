@@ -12,9 +12,9 @@ export class CustomersController {
   async getById (request: Request, response: Response): Promise<Response> {
     const getCustomerById = new GetCustomerService()
 
-    const { customerId } = request.params
+    const { id } = request.params
 
-    const customer = await getCustomerById.execute({ customerId })
+    const customer = await getCustomerById.execute({ id })
 
     return response.json(customer)
   }
@@ -32,10 +32,10 @@ export class CustomersController {
   async update (request: Request, response: Response): Promise<Response> {
     const updateCustomer = new UpdateCustomerService()
 
-    const { customerId } = request.params
+    const { id } = request.params
     const { name, email } = request.body
 
-    const customer = await updateCustomer.execute({ customerId, name, email })
+    const customer = await updateCustomer.execute({ id, name, email })
 
     return response.status(201).json(customer)
   }
@@ -43,9 +43,9 @@ export class CustomersController {
   async delete (request: Request, response: Response): Promise<Response> {
     const deleteCustomer = new DeleteCustomerService()
 
-    const { customerId } = request.params
+    const { id } = request.params
 
-    await deleteCustomer.execute({ customerId })
+    await deleteCustomer.execute({ id })
 
     return response.status(204).send()
   }

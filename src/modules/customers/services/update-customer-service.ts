@@ -4,15 +4,15 @@ import { Customer } from '../typeorm/entities/customer'
 import { CustomersRepository } from '../typeorm/repositories'
 
 interface IRequest {
-  customerId: string
+  id: string
   name: string
   email: string
 }
 
 export class UpdateCustomerService {
-  async execute ({ customerId, name, email }: IRequest): Promise<Customer> {
+  async execute ({ id, name, email }: IRequest): Promise<Customer> {
     const customersRepository = getCustomRepository(CustomersRepository)
-    const customer = await customersRepository.findById(customerId)
+    const customer = await customersRepository.findById(id)
 
     if (!customer) {
       throw new AppError('Customer not found')
@@ -20,7 +20,7 @@ export class UpdateCustomerService {
 
     const customerEmailExists = await customersRepository.findByEmail(email)
 
-    if (customerEmailExists && customerEmailExists.id !== customerId) {
+    if (customerEmailExists && customerEmailExists.id !== id) {
       throw new AppError('Email already in use')
     }
 
