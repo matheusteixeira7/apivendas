@@ -3,14 +3,14 @@ import { getCustomRepository } from 'typeorm'
 import { CustomersRepository } from '../typeorm/repositories'
 
 interface IRequest {
-  id: string
+  customerId: string
 }
 
 export class DeleteCustomerService {
   private customersRepository = getCustomRepository(CustomersRepository)
 
-  async execute ({ id }: IRequest): Promise<void | undefined> {
-    const customer = await this.customersRepository.findById(id)
+  async execute ({ customerId }: IRequest): Promise<void | undefined> {
+    const customer = await this.customersRepository.findById(customerId)
 
     if (!customer) {
       throw new AppError('Customer not found', 404)
