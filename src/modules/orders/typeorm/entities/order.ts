@@ -1,7 +1,8 @@
 import { Customer } from '@modules/customers/typeorm/entities/customer'
-import { CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
+import { CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
+import { OrdersProducts } from './orders-products'
 
-@Entity('customers')
+@Entity('orders')
 export class Order {
   @PrimaryGeneratedColumn('uuid')
     id: string
@@ -9,6 +10,11 @@ export class Order {
   @ManyToOne(() => Customer)
   @JoinColumn({ name: 'customerId' })
     customer: Customer
+
+  @OneToMany(() => OrdersProducts, ordersProducts => ordersProducts.order, {
+    cascade: true
+  })
+    ordersProducts: OrdersProducts[]
 
   @CreateDateColumn()
     createdAt: Date
