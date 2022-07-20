@@ -15,6 +15,12 @@ export class OrdersProducts {
   @JoinColumn({ name: 'productId' })
     product: Product
 
+  @Column()
+    orderId: string
+
+  @Column()
+    productId: string
+
   @Column('decimal')
     price: number
 
