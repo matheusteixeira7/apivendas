@@ -1,9 +1,12 @@
+import { isAuthenticated } from '@shared/http/middlewares/is-authenticated'
 import { celebrate, Joi, Segments } from 'celebrate'
 import { Router } from 'express'
 import { ProductsController } from '../controllers/products-controller'
 
 export const productsRouter = Router()
 const productsController = new ProductsController()
+
+productsRouter.use(isAuthenticated)
 
 productsRouter.get('/', productsController.getAll)
 
