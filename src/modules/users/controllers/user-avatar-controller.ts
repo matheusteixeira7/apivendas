@@ -1,3 +1,4 @@
+import { instanceToInstance } from 'class-transformer'
 import { Request, Response } from 'express'
 import { UpdateUserAvatarService } from './../services/update-user-avatar-service'
 
@@ -10,6 +11,6 @@ export class UserAvatarController {
       avatarFileName: request.file!.filename
     })
 
-    return response.status(201).json(user)
+    return response.status(201).json(instanceToInstance(user))
   }
 }

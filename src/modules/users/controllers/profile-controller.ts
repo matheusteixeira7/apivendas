@@ -1,4 +1,5 @@
 import { AppError } from '@shared/errors/AppError'
+import { instanceToInstance } from 'class-transformer'
 import { Request, Response } from 'express'
 import { GetUserService } from '../services/get-user-service'
 import { UpdateUserService } from '../services/update-user-service'
@@ -15,7 +16,7 @@ export class ProfileController {
 
     const user = await getUser.execute({ userId })
 
-    return response.status(200).json(user)
+    return response.json(instanceToInstance(user))
   }
 
   async update (request: Request, response: Response): Promise<Response> {
@@ -37,6 +38,6 @@ export class ProfileController {
       oldPassword
     })
 
-    return response.status(200).json(user)
+    return response.json(instanceToInstance(user))
   }
 }

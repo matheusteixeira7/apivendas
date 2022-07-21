@@ -1,3 +1,4 @@
+import { instanceToInstance } from 'class-transformer'
 import { Request, Response } from 'express'
 import { CreateUserService, GetAllUsersService } from '../services'
 
@@ -7,7 +8,7 @@ export class UsersController {
 
     const users = await getAllUsers.execute()
 
-    return response.status(200).json(users)
+    return response.status(200).json(instanceToInstance(users))
   }
 
   async create (request: Request, response: Response): Promise<Response> {
@@ -17,6 +18,6 @@ export class UsersController {
 
     const user = await createUser.execute({ name, email, password })
 
-    return response.status(201).json(user)
+    return response.status(201).json(instanceToInstance(user))
   }
 }
