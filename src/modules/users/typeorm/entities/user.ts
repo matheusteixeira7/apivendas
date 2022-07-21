@@ -1,4 +1,4 @@
-import { Exclude } from 'class-transformer'
+import { Exclude, Expose } from 'class-transformer'
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 
 @Entity('users')
@@ -24,4 +24,9 @@ export class User {
 
   @UpdateDateColumn()
     updatedAt: Date
+
+  @Expose({ name: 'avatarUrl' })
+  getAvatarUrl (): string | null {
+    return this.avatar ? `${process.env.APP_API_URL}/files/${this.avatar}` : null
+  }
 }
